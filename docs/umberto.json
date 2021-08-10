@@ -3,6 +3,16 @@
 	"slug": "ckeditor5",
 	"hexo-config": "docs/hexo-custom-config.json",
 	"extraStyles": "assets/styles.css",
+	"hooks": {
+		"beforeHexo": [
+			"../scripts/docs/hooks/1.js",
+			"../scripts/docs/hooks/2.js",
+			"../scripts/docs/hooks/3.js",
+			"../scripts/docs/hooks/4.js"
+		],
+		"afterHexo": [
+		]
+	},
 	"packagesDir": ["packages", "external", "external/*/packages" ],
 	"path": "docs",
 	"observablesdocs": "module:utils/observablemixin~ObservableMixin",
