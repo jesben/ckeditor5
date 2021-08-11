@@ -38,6 +38,8 @@ import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefrom
 import Strikethrough from '@ckeditor/ckeditor5-basic-styles/src/strikethrough';
 import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
+import TableProperties from '@ckeditor/ckeditor5-table/src/tableproperties';
+import TableCellProperties from '@ckeditor/ckeditor5-table/src/tablecellproperties';
 import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import UploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter';
@@ -240,10 +242,11 @@ class PlaceholderEditing extends Plugin {
     }
 }
 
-class ClassicEditor extends ClassicEditorBase { }
-class DecoupledEditor extends DecoupledEditorBase { }
+/**
+ * CLASSIC EDITOR
+ */
 
-// Plugins to include in the build.
+class ClassicEditor extends ClassicEditorBase { }
 
 ClassicEditor.builtinPlugins = [
     Essentials,
@@ -271,47 +274,6 @@ ClassicEditor.builtinPlugins = [
     TableToolbar,
     TextTransformation
 ];
-
-DecoupledEditor.builtinPlugins = [
-    Essentials,
-    Alignment,
-    FontSize,
-    FontFamily,
-    FontColor,
-    FontBackgroundColor,
-    UploadAdapter,
-    Autoformat,
-    Bold,
-    Italic,
-    Strikethrough,
-    Underline,
-    BlockQuote,
-    CKFinder,
-    CloudServices,
-    EasyImage,
-    Heading,
-    Image,
-    ImageCaption,
-    ImageResize,
-    ImageStyle,
-    ImageToolbar,
-    ImageUpload,
-    Indent,
-    IndentBlock,
-    Link,
-    List,
-    ListStyle,
-    MediaEmbed,
-    Paragraph,
-    PasteFromOffice,
-    Table,
-    TableToolbar,
-    TextTransformation,
-    PageBreak,
-    Placeholder
-];
-
-// Editor configuration.
 
 ClassicEditor.defaultConfig = {
     toolbar: {
@@ -355,6 +317,53 @@ ClassicEditor.defaultConfig = {
     // This value must be kept in sync with the language defined in webpack.config.js.
     language: 'en'
 };
+
+/**
+ * DECOUPLED EDITOR
+ */
+
+class DecoupledEditor extends DecoupledEditorBase { }
+
+DecoupledEditor.builtinPlugins = [
+    Essentials,
+    Alignment,
+    FontSize,
+    FontFamily,
+    FontColor,
+    FontBackgroundColor,
+    UploadAdapter,
+    Autoformat,
+    Bold,
+    Italic,
+    Strikethrough,
+    Underline,
+    BlockQuote,
+    CKFinder,
+    CloudServices,
+    EasyImage,
+    Heading,
+    Image,
+    ImageCaption,
+    ImageResize,
+    ImageStyle,
+    ImageToolbar,
+    ImageUpload,
+    Indent,
+    IndentBlock,
+    Link,
+    List,
+    ListStyle,
+    MediaEmbed,
+    Paragraph,
+    PasteFromOffice,
+    Table,
+    TableToolbar,
+    TableProperties,
+    TableCellProperties,
+    TextTransformation,
+    PageBreak,
+    Placeholder
+];
 
 DecoupledEditor.defaultConfig = {
     toolbar: {
@@ -406,13 +415,16 @@ DecoupledEditor.defaultConfig = {
         contentToolbar: [
             'tableColumn',
             'tableRow',
-            'mergeTableCells'
+            'mergeTableCells',
+            'tableProperties',
+            'tableCellProperties'
         ]
     },
     // This value must be kept in sync with the language defined in webpack.config.js.
     language: 'en'
 };
 
+// Export
 export default {
     ClassicEditor, DecoupledEditor
 };

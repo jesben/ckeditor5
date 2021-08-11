@@ -43,7 +43,6 @@
     "@ckeditor/ckeditor5-media-embed": "^29.1.0",
     "@ckeditor/ckeditor5-paragraph": "^29.1.0",
     "@ckeditor/ckeditor5-paste-from-office": "^29.1.0",
-    "@ckeditor/ckeditor5-table": "^29.1.0",
     "@ckeditor/ckeditor5-typing": "^29.1.0"
   },
   "devDependencies": {
@@ -52,6 +51,7 @@
     "@ckeditor/ckeditor5-dev-utils": "^25.3.0",
     "@ckeditor/ckeditor5-dev-webpack-plugin": "^25.0.0",
     "@ckeditor/ckeditor5-page-break": "^29.1.0",
+    "@ckeditor/ckeditor5-table": "^29.1.0",
     "@ckeditor/ckeditor5-theme-lark": "^29.1.0",
     "postcss-loader": "^3.0.0",
     "raw-loader": "^4.0.1",
