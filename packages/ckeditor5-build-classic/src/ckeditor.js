@@ -23,6 +23,8 @@ import Heading from '@ckeditor/ckeditor5-heading/src/heading';
 import Image from '@ckeditor/ckeditor5-image/src/image';
 import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption';
 import ImageResize from '@ckeditor/ckeditor5-image/src/imageresize';
+import ImageResizeEditing from '@ckeditor/ckeditor5-image/src/imageresize/imageresizeediting';
+import ImageResizeHandles from '@ckeditor/ckeditor5-image/src/imageresize/imageresizehandles';
 import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle';
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar';
 import ImageUpload from '@ckeditor/ckeditor5-image/src/imageupload';
@@ -45,9 +47,9 @@ import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import UploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter';
 
 import PageBreak from '@ckeditor/ckeditor5-page-break/src/pagebreak';
+import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 
 // Placholder plugin
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 import { toWidget, viewToModelPositionOutsideModelElement } from '@ckeditor/ckeditor5-widget/src/utils';
 import Widget from '@ckeditor/ckeditor5-widget/src/widget';
 import Command from '@ckeditor/ckeditor5-core/src/command';
@@ -55,6 +57,14 @@ import Command from '@ckeditor/ckeditor5-core/src/command';
 import { addListToDropdown, createDropdown } from '@ckeditor/ckeditor5-ui/src/dropdown/utils';
 import Collection from '@ckeditor/ckeditor5-utils/src/collection';
 import Model from '@ckeditor/ckeditor5-ui/src/model';
+
+// Two columns
+import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
+import imageTwoColumnsIcon from '@ckeditor/ckeditor5-core/theme/icons/two-columns.svg';
+
+/**
+ * PLACEHOLDER
+ */
 
 class Placeholder extends Plugin {
     static get requires() {
@@ -243,6 +253,49 @@ class PlaceholderEditing extends Plugin {
 }
 
 /**
+ * TWO COLUMNS
+ */
+
+class InsertTwoColumns extends Plugin {
+    init() {
+        const editor = this.editor;
+
+        editor.ui.componentFactory.add('insertTwoColumns', locale => {
+            const view = new ButtonView(locale);
+
+            view.set({
+                label: 'Indsæt to kolonner layout',
+                icon: imageTwoColumnsIcon,
+                tooltip: true
+            });
+
+            // Callback executed once the image is clicked.
+            view.on('execute', () => {
+                editor.model.change(writer => {
+                    const template = `<table cellspacing="0" cellpadding="0" style="width:100%" border="0">
+                        <tr>
+                            <td style="width:50%">
+                                <h3>XXX</h3>
+                            </td>
+                            <td></td>
+                            <td style="width:50%">
+                                <h3>XXX</h3>
+                            </td>
+                        </tr>`;
+                    const viewFragment = editor.data.processor.toView(template);
+                    const modelFragment = editor.data.toModel(viewFragment);
+
+                    // Insert the html in the current selection location.
+                    editor.model.insertContent(modelFragment, editor.model.document.selection);
+                });
+            });
+
+            return view;
+        });
+    }
+}
+
+/**
  * CLASSIC EDITOR
  */
 
@@ -252,6 +305,8 @@ ClassicEditor.builtinPlugins = [
     Essentials,
     UploadAdapter,
     Autoformat,
+    FontColor,
+    FontBackgroundColor,
     Bold,
     Italic,
     BlockQuote,
@@ -264,6 +319,9 @@ ClassicEditor.builtinPlugins = [
     ImageStyle,
     ImageToolbar,
     ImageUpload,
+    ImageResize,
+    ImageResizeEditing,
+    ImageResizeHandles,
     Indent,
     Link,
     List,
@@ -280,6 +338,9 @@ ClassicEditor.defaultConfig = {
         items: [
             'heading',
             '|',
+            'fontColor',
+            'fontBackgroundColor',
+            '|',
             'bold',
             'italic',
             'link',
@@ -294,17 +355,76 @@ ClassicEditor.defaultConfig = {
             'insertTable',
             'mediaEmbed',
             'undo',
-            'redo'
+            'redo',
         ]
     },
     image: {
+        resizeUnit: '%',
+        resizeOptions: [
+            {
+                name: 'resizeImage:original',
+                value: null,
+                label: 'Original'
+            },
+            {
+                name: 'resizeImage:10',
+                value: '10',
+                label: '10%'
+            },
+            {
+                name: 'resizeImage:20',
+                value: '20',
+                label: '20%'
+            },
+            {
+                name: 'resizeImage:30',
+                value: '30',
+                label: '30%'
+            },
+            {
+                name: 'resizeImage:40',
+                value: '40',
+                label: '40%'
+            },
+            {
+                name: 'resizeImage:50',
+                value: '50',
+                label: '50%'
+            },
+            {
+                name: 'resizeImage:60',
+                value: '60',
+                label: '60%'
+            },
+            {
+                name: 'resizeImage:70',
+                value: '70',
+                label: '70%'
+            },
+            {
+                name: 'resizeImage:80',
+                value: '80',
+                label: '80%'
+            },
+            {
+                name: 'resizeImage:90',
+                value: '90',
+                label: '90%'
+            },
+            {
+                name: 'resizeImage:100',
+                value: '100',
+                label: '100%'
+            }
+        ],
         toolbar: [
             'imageStyle:inline',
             'imageStyle:block',
             'imageStyle:side',
             '|',
             'toggleImageCaption',
-            'imageTextAlternative'
+            //'imageTextAlternative',
+            'resizeImage',
         ]
     },
     table: {
@@ -344,10 +464,12 @@ DecoupledEditor.builtinPlugins = [
     Heading,
     Image,
     ImageCaption,
-    ImageResize,
     ImageStyle,
     ImageToolbar,
     ImageUpload,
+    ImageResize,
+    ImageResizeEditing,
+    ImageResizeHandles,
     Indent,
     IndentBlock,
     Link,
@@ -362,7 +484,8 @@ DecoupledEditor.builtinPlugins = [
     TableCellProperties,
     TextTransformation,
     PageBreak,
-    Placeholder
+    Placeholder,
+    InsertTwoColumns
 ];
 
 DecoupledEditor.defaultConfig = {
@@ -386,6 +509,7 @@ DecoupledEditor.defaultConfig = {
             'alignment',
             'outdent',
             'indent',
+            'insertTwoColumns',
             'pageBreak',
             '|',
             'link',
@@ -401,14 +525,72 @@ DecoupledEditor.defaultConfig = {
         ]
     },
     image: {
-        resizeUnit: 'px',
+        resizeUnit: '%',
+        resizeOptions: [
+            {
+                name: 'resizeImage:original',
+                value: null,
+                label: 'Original'
+            },
+            {
+                name: 'resizeImage:10',
+                value: '10',
+                label: '10%'
+            },
+            {
+                name: 'resizeImage:20',
+                value: '20',
+                label: '20%'
+            },
+            {
+                name: 'resizeImage:30',
+                value: '30',
+                label: '30%'
+            },
+            {
+                name: 'resizeImage:40',
+                value: '40',
+                label: '40%'
+            },
+            {
+                name: 'resizeImage:50',
+                value: '50',
+                label: '50%'
+            },
+            {
+                name: 'resizeImage:60',
+                value: '60',
+                label: '60%'
+            },
+            {
+                name: 'resizeImage:70',
+                value: '70',
+                label: '70%'
+            },
+            {
+                name: 'resizeImage:80',
+                value: '80',
+                label: '80%'
+            },
+            {
+                name: 'resizeImage:90',
+                value: '90',
+                label: '90%'
+            },
+            {
+                name: 'resizeImage:100',
+                value: '100',
+                label: '100%'
+            }
+        ],
         toolbar: [
             'imageStyle:inline',
             'imageStyle:wrapText',
             'imageStyle:breakText',
             '|',
             'toggleImageCaption',
-            'imageTextAlternative'
+            //'imageTextAlternative',
+            'resizeImage',
         ]
     },
     table: {
