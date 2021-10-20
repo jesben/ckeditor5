@@ -165,7 +165,7 @@ class PlaceholderEditing extends Plugin {
     }
 
     init() {
-        console.log('PlaceholderEditing#init() got called');
+        //console.log('PlaceholderEditing#init() got called');
 
         this._defineSchema();
         this._defineConverters();
@@ -330,7 +330,8 @@ ClassicEditor.builtinPlugins = [
     PasteFromOffice,
     Table,
     TableToolbar,
-    TextTransformation
+    TextTransformation,
+    Placeholder,
 ];
 
 ClassicEditor.defaultConfig = {
@@ -356,6 +357,8 @@ ClassicEditor.defaultConfig = {
             'mediaEmbed',
             'undo',
             'redo',
+            '|',
+            'placeholder',
         ]
     },
     image: {
