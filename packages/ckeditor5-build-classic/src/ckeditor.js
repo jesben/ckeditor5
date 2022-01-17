@@ -45,6 +45,7 @@ import TableCellProperties from '@ckeditor/ckeditor5-table/src/tablecellproperti
 import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import UploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter';
+import GeneralHtmlSupport from '@ckeditor/ckeditor5-html-support/src/generalhtmlsupport';
 
 import PageBreak from '@ckeditor/ckeditor5-page-break/src/pagebreak';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
@@ -332,6 +333,7 @@ ClassicEditor.builtinPlugins = [
     TableToolbar,
     TextTransformation,
     Placeholder,
+    GeneralHtmlSupport,
 ];
 
 ClassicEditor.defaultConfig = {
@@ -438,7 +440,17 @@ ClassicEditor.defaultConfig = {
         ]
     },
     // This value must be kept in sync with the language defined in webpack.config.js.
-    language: 'en'
+    language: 'en',
+    htmlSupport: {
+        allow: [
+            {
+                name: /.*/,
+                attributes: true,
+                classes: true,
+                styles: true
+            }
+        ]
+    }
 };
 
 /**
