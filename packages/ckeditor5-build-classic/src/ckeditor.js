@@ -440,17 +440,7 @@ ClassicEditor.defaultConfig = {
         ]
     },
     // This value must be kept in sync with the language defined in webpack.config.js.
-    language: 'en',
-    htmlSupport: {
-        allow: [
-            {
-                name: /.*/,
-                attributes: true,
-                classes: true,
-                styles: true
-            }
-        ]
-    }
+    language: 'en'
 };
 
 /**
