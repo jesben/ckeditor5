@@ -46,6 +46,7 @@ import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformatio
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
 import UploadAdapter from '@ckeditor/ckeditor5-adapter-ckfinder/src/uploadadapter';
 import GeneralHtmlSupport from '@ckeditor/ckeditor5-html-support/src/generalhtmlsupport';
+import SourceEditing from '@ckeditor/ckeditor5-source-editing/src/sourceediting';
 
 import PageBreak from '@ckeditor/ckeditor5-page-break/src/pagebreak';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
@@ -334,6 +335,7 @@ ClassicEditor.builtinPlugins = [
     TextTransformation,
     Placeholder,
     GeneralHtmlSupport,
+    SourceEditing,
 ];
 
 ClassicEditor.defaultConfig = {
@@ -490,7 +492,9 @@ DecoupledEditor.builtinPlugins = [
     TextTransformation,
     PageBreak,
     Placeholder,
-    InsertTwoColumns
+    InsertTwoColumns,
+    GeneralHtmlSupport,
+    SourceEditing,
 ];
 
 DecoupledEditor.defaultConfig = {

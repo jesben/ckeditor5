@@ -44,6 +44,7 @@
     "@ckeditor/ckeditor5-media-embed": "^31.1.0",
     "@ckeditor/ckeditor5-paragraph": "^31.1.0",
     "@ckeditor/ckeditor5-paste-from-office": "^31.1.0",
+    "@ckeditor/ckeditor5-source-editing": "^29.1.0",
     "@ckeditor/ckeditor5-typing": "^31.1.0"
   },
   "devDependencies": {
